@@ -76,9 +76,7 @@ app.post("/bfhl", async (req, res) => {
   }
 });
 
-
-// ------------- UTILITY FUNCTIONS ----------------
-
+// Functions
 function fibonacci(n) {
   if (n <= 0) return [];
   if (n === 1) return [0];
@@ -110,7 +108,6 @@ const url =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" +
   process.env.GEMINI_API_KEY;
 
-  // Force AI to give only one word
   const strictQuestion = question + "\nGive ONLY the one-word answer. No sentences.";
 
   const response = await axios.post(url, {
@@ -125,11 +122,10 @@ const url =
   const text =
     response.data.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
-  // Clean output (remove symbols, newlines)
   const clean = text
-    .replace(/[^a-zA-Z ]/g, "") // remove ** or punctuation
+    .replace(/[^a-zA-Z ]/g, "") 
     .trim()
-    .split(" ")[0]; // take first clean word
+    .split(" ")[0]; 
 
   return clean;
 }
